@@ -10,48 +10,56 @@ export const createOrderCtrl = (req, res) => {
   console.log(userId);
   const { coffee } = req.body;
 
-  if (
-    coffee !== 'Expresso' ||
-    coffee !== 'Americano' ||
-    coffee !== 'Cappuccino'
-  ) {
-    return res.status(400).json({ message: 'Invalid coffee' });
-  }
-
   const order = createOrder(coffee, userId);
 
   res.status(201).json(order);
 };
 
 export const getOrderByIdCtrl = (req, res) => {
-  const userId = req.user.id;
-  const { id } = req.params;
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
 
-  const order = getOrderById(id, userId);
+    const order = getOrderById(id, userId);
 
-  if (!order) {
-    return res.status(404).json({ message: 'Order not found' });
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-
-  res.status(200).json(order);
 };
 
 export const deleteOrderByIdCtrl = (req, res) => {
-  const userId = req.user.id;
-  const { id } = req.params;
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
 
-  const order = deleteOrderById(id, userId);
+    const order = deleteOrderById(id, userId);
 
-  if (!order) {
-    return res.status(404).json({ message: 'Order not found' });
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-
-  res.status(200).json(order);
 };
 
 export const getOrdersCtrl = (req, res) => {
-  const userId = req.user.id;
-  const orders = getOrders(userId);
+  try {
+    const userId = req.user.id;
+    console.log('usuario', userId);
+    const orders = getOrders(userId);
 
-  res.status(200).json(orders);
+    res.status(200).json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
