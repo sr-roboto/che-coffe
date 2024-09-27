@@ -9,10 +9,11 @@ export const createOrderCtrl = (req, res) => {
   const userId = req.user.id;
   console.log(userId);
   const { coffee } = req.body;
+  console.log(coffee);
 
   const order = createOrder(coffee, userId);
 
-  res.status(201).json(order);
+  return res.status(201).json(order);
 };
 
 export const getOrderByIdCtrl = (req, res) => {
