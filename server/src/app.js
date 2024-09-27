@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth.routes.js';
 import { ordersRouter } from './routes/orders.routes.js';
-
+//
 const app = express();
 
 // middlewares
